@@ -2,14 +2,14 @@ import React, { act } from 'react';
 import logo from './logo.svg';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import {selectTodos, todoAdded, store } from './store';
+import {selectTodos, todoAdded, todosDeleted, store } from './store';
 import { TodoItem } from './TodoItem';
 
 function App() {
   const dispatch = store.dispatch;
 
   function addTodo() {
-    dispatch({type: 'todoAdded', payload: inputValue});
+    dispatch(todoAdded(inputValue));
     setInputValue('');
   }
   
@@ -25,7 +25,7 @@ function App() {
       >
       </input>
       <button onClick={addTodo}>Add Todo</button>
-      <button onClick={() => dispatch({type: 'todosDeleted'})}>DELETE ALL</button>
+      <button onClick={() => dispatch(todosDeleted())}>DELETE ALL</button>
       <button onClick={() => dispatch({type: 'allTodosMarkedComplete'})}>Mark all complete</button>
       <button onClick={() => dispatch({type: 'completedTodosDeleted'})}>delete all completed</button>
       <ul>

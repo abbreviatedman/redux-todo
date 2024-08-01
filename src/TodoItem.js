@@ -1,11 +1,11 @@
-import { store } from "./store";
+import { store, todoToggled } from "./store";
 export function TodoItem(props) {
     const todo = props.todo;
 
     return (
         <li style={{textDecoration: todo.completed ? 'line-through' : ''}}>
             <span
-                onClick={() => store.dispatch({type: 'todoToggled', payload: todo.id})}
+                onClick={() => store.dispatch(todoToggled(todo.id))}
             >
                 {todo.text}
             </span>

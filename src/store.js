@@ -6,8 +6,6 @@ const initialState = [
     {id: 2, text: 'Go for a run', completed: false},
 ]
 
-
-
 function getNextId(todos) {
     let maxId = -1;
     for (const todo of todos) {
@@ -60,7 +58,9 @@ export function todoReducer(state = initialState, action) {
             todos: state.todos.filter((todo) => todo.id !== action.payload)
         }
     }
-
+    
+    // with immutability-preserving code, we can return a filtered version
+    // with mutable code, we could use splice to splcie out all that are completed
     if (action.type === 'completedTodosDeleted') {
         return {
             todos: state.todos.filter((todo) => !todo.completed)
@@ -91,11 +91,25 @@ const todosSlice = createSlice({
         todoToggled: function(todos, action) {
             const todo = todos.find((todo) => todo.id === action.payload);
             todo.completed = !todo.completed;
+        },
+
+        todosDeleted: function(todos) {
+            todos.splice(0, todos.length);
+        },
+
+        todoDeleted: function(todos, {payload}) {
+            const i = todos.findIndex((todo) => todo.id === payload)
+            todos.splice(i, 1);
+        },
+
+        completedTodosDeleted(todos) {
+            const incompleteTodos = todos.filter((todo) => !todo.completed);
+            todos.splice(0, todos.length, ...incompleteTodos);
         }
     }
 })
 
 export const selectTodos = (state) => state.todos
 
-export const {todoAdded, todoToggled} = todosSlice.actions;
+export const {todoAdded, todoToggled, todosDeleted} = todosSlice.actions;
 export const store = configureStore({reducer: {todos: todosSlice.reducer}, devTools: true});
