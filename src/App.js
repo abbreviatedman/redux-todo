@@ -1,43 +1,72 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectTodos, todoAdded, todosDeleted, markAllTodosCompleted, completedTodosDeleted, todoDeleted, todoToggled, store } from "./store";
-import { TodoItem } from "./TodoItem";
+import React, { useState } from "react";
+import Header from "./Header";
+import TodoContainer from "./TodoContainer";
+import Footer from "./Footer";
 
+const App = () => {
+  const [todos, setTodos] = useState([]);
+  const [preferences, setPreferences] = useState({ darkMode: false });
 
+  const addTodo = (newTodo) => {
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
+  };
 
-function App() {
-  const dispatch = store.dispatch;
+  const deleteTodo = (id) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+  };
 
-  function addTodo() {
-    dispatch(todoAdded(inputValue));
-    setInputValue("");
-  }
+  const toggleTodo = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
 
-  const todos = useSelector(selectTodos);
-  const [inputValue, setInputValue] = useState("");
+  const markAllComplete = () => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => ({ ...todo, completed: true }))
+    );
+  };
+
+  const deleteAllCompleted = () => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed));
+  };
+
+  const deleteAllTodos = () => {
+    setTodos(() => []);
+  };
+
+  const toggleDarkMode = () => {
+    setPreferences((prevPreferences) => ({
+      ...prevPreferences,
+      darkMode: !prevPreferences.darkMode,
+    }));
+  };
+
+  const appStyles = {
+    backgroundColor: preferences.darkMode ? "#121212" : "#fff",
+    color: preferences.darkMode ? "#fff" : "#000",
+    minHeight: "100vh",
+    padding: "20px",
+  };
 
   return (
-    <div className="App">
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-      ></input>
-      <button onClick={addTodo}>Add Todo</button>
-      <button onClick={() => dispatch(todosDeleted())}>DELETE ALL</button>
-      <button onClick={() => dispatch(markAllTodosCompleted())}>
-        Mark all complete
-      </button>
-      <button onClick={() => dispatch(completedTodosDeleted())}>
-        delete all completed
-      </button>
-      <ul>
-        {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
-        ))}
-      </ul>
+    <div style={appStyles}>
+      <Header toggleDarkMode={toggleDarkMode} preferences={preferences} />
+      <TodoContainer
+        todos={todos}
+        addTodo={addTodo}
+        deleteTodo={deleteTodo}
+        toggleTodo={toggleTodo}
+        markAllComplete={markAllComplete}
+        deleteAllCompleted={deleteAllCompleted}
+        deleteAllTodos={deleteAllTodos}
+        preferences={preferences}
+      />
+      <Footer todos={todos} preferences={preferences} />
     </div>
   );
-}
+};
 
 export default App;
