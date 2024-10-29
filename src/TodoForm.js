@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TodoForm = ({ addTodo, preferences }) => {
+const TodoForm = () => {
   const [task, setTask] = useState("");
 
   const handleSubmit = (e) => {
@@ -11,6 +11,7 @@ const TodoForm = ({ addTodo, preferences }) => {
         task,
         completed: false,
       });
+
       setTask("");
     }
   };

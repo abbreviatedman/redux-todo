@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = ({ toggleDarkMode, preferences }) => {
+const Header = () => {
   const headerStyles = {
     display: "flex",
     justifyContent: "space-between",

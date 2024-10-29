@@ -1,11 +1,6 @@
 import React from "react";
 
-const TodoActions = ({
-  markAllComplete,
-  deleteAllCompleted,
-  deleteAllTodos,
-  preferences,
-}) => {
+const TodoActions = () => {
   const actionsStyles = {
     marginTop: "20px",
     display: "flex",
@@ -39,13 +34,13 @@ const TodoActions = ({
 
   return (
     <div style={actionsStyles}>
-      <button style={completeStyles} onClick={markAllComplete}>
+      <button style={completeStyles}>
         Mark All Complete
       </button>
-      <button style={deleteCompletedStyles} onClick={deleteAllCompleted}>
+      <button style={deleteCompletedStyles}>
         Delete All Completed
       </button>
-      <button style={deleteAllStyles} onClick={deleteAllTodos}>
+      <button style={deleteAllStyles}>
         Delete All Todos
       </button>
     </div>

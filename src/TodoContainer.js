@@ -3,16 +3,7 @@ import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import TodoActions from "./TodoActions";
 
-const TodoContainer = ({
-  todos,
-  addTodo,
-  deleteTodo,
-  toggleTodo,
-  markAllComplete,
-  deleteAllCompleted,
-  deleteAllTodos,
-  preferences,
-}) => {
+const TodoContainer = () => {
   const containerStyles = {
     padding: "20px",
     backgroundColor: preferences.darkMode ? "#1f1f1f" : "#f8f8f8",
@@ -24,19 +15,9 @@ const TodoContainer = ({
 
   return (
     <div style={containerStyles}>
-      <TodoForm addTodo={addTodo} preferences={preferences} />
-      <TodoList
-        todos={todos}
-        deleteTodo={deleteTodo}
-        toggleTodo={toggleTodo}
-        preferences={preferences}
-      />
-      <TodoActions
-        markAllComplete={markAllComplete}
-        deleteAllCompleted={deleteAllCompleted}
-        deleteAllTodos={deleteAllTodos}
-        preferences={preferences}
-      />
+      <TodoForm />
+      <TodoList />
+      <TodoActions />
     </div>
   );
 };

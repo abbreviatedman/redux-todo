@@ -1,6 +1,6 @@
 import React from "react";
 
-const Footer = ({ todos, preferences }) => {
+const Footer = () => {
   const footerStyles = {
     marginTop: "20px",
     padding: "10px",

@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import Header from "./Header";
-import TodoContainer from "./TodoContainer";
-import Footer from "./Footer";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
@@ -53,18 +50,6 @@ const App = () => {
 
   return (
     <div style={appStyles}>
-      <Header toggleDarkMode={toggleDarkMode} preferences={preferences} />
-      <TodoContainer
-        todos={todos}
-        addTodo={addTodo}
-        deleteTodo={deleteTodo}
-        toggleTodo={toggleTodo}
-        markAllComplete={markAllComplete}
-        deleteAllCompleted={deleteAllCompleted}
-        deleteAllTodos={deleteAllTodos}
-        preferences={preferences}
-      />
-      <Footer todos={todos} preferences={preferences} />
     </div>
   );
 };

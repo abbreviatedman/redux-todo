@@ -1,7 +1,7 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, deleteTodo, toggleTodo, preferences }) => {
+const TodoList = () => {
   const listStyles = {
     listStyle: "none",
     padding: 0,
@@ -13,9 +13,6 @@ const TodoList = ({ todos, deleteTodo, toggleTodo, preferences }) => {
         <TodoItem
           key={todo.id}
           todo={todo}
-          deleteTodo={deleteTodo}
-          toggleTodo={toggleTodo}
-          preferences={preferences}
         />
       ))}
     </ul>
